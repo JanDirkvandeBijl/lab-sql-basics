@@ -40,11 +40,14 @@ SELECT DISTINCT account_id FROM `order` WHERE order_id BETWEEN 29540 AND 29560 O
 
 -- Query 11
 -- In the order table, what are the individual amounts that were sent to (account_to) id 30067122?
-SELECT amount FROM `order` WHERE account_to = 30067122;
-
+SELECT DISTINCT amount FROM `order` WHERE account_to = 30067122;
 -- Query 12
 -- In the trans table, show the trans_id, date, type and amount of the 10 first transactions from account_id 793 in chronological order, from newest to oldest.
-SELECT trans_id, date, type, amount FROM trans WHERE account_id = 793 ORDER BY date DESC LIMIT 10;
+SELECT trans_id, date, type, amount
+FROM trans
+WHERE account_id = 793
+ORDER BY trans_id DESC
+LIMIT 10;
 
 -- Query 13
 -- In the client table, of all districts with a district_id lower than 10, how many clients are from each district_id? Show the results sorted by the district_id in ascending order.
@@ -64,11 +67,12 @@ SELECT date, COUNT(*) FROM loan WHERE date < 930907 GROUP BY date ORDER BY date 
 
 -- Query 17
 -- In the loan table, for each day in December 1997, count the number of loans issued for each unique loan duration, ordered by date and duration, both in ascending order.
-SELECT date, duration, COUNT(*) 
+SELECT date, duration, COUNT(*)
 FROM loan
-WHERE date BETWEEN 971201 AND 971225
+WHERE date BETWEEN 971201 AND 971231
 GROUP BY date, duration
 ORDER BY date ASC, duration ASC;
+
 -- Query 18
 -- In the trans table, for account_id 396, sum the amount of transactions for each type (VYDAJ = Outgoing, PRIJEM = Incoming). Your output should have the account_id, the type and the sum of amount, named as total_amount. Sort alphabetically by type.
 SELECT account_id, type, SUM(amount) AS total_amount FROM trans WHERE account_id = 396 GROUP BY type ORDER BY type;
